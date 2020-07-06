@@ -4,6 +4,15 @@ public class Item {
     private int id;
     private String name;
 
+    public Item() {
+    }
+
+    public Item(String id) {
+    }
+
+    public Item(String id, String name) {
+    }
+
     public int getId() {
         return id;
     }
@@ -17,11 +26,6 @@ public class Item {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setIdName(int id, String name) {
-        this.id = id;
         this.name = name;
     }
 }
