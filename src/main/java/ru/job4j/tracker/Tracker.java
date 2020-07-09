@@ -7,6 +7,15 @@ public class Tracker {
     private int ids = 1;
     private int size = 0;
 
+    public boolean delete(int id) {
+        int index = -1;
+        index = indexOf(id);
+        System.arraycopy(items, index + 1, items, index, size - index);
+        items[size - 1] = null;
+        size--;
+        return index != -1;
+    }
+
     public Item add(Item item) {
         item.setId(ids++);
         items[size++] = item;
