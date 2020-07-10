@@ -8,6 +8,7 @@ public class Item {
     }
 
     public Item(String id) {
+        this.name = id;
     }
 
     public Item(String id, String name) {
