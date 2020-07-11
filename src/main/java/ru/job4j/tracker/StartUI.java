@@ -11,6 +11,7 @@ public class StartUI {
         Item item = new Item();
         String name;
         boolean run = true;
+        boolean result;
         while (run) {
             this.showMenu();
             int select = Integer.valueOf(scanner.nextLine());
@@ -41,14 +42,19 @@ public class StartUI {
                     System.out.print("Enter new name: ");
                     name = scanner.nextLine();
                     item.setName(name);
-                    tracker.replace(id, item);
+                    result = tracker.replace(id, item);
+                    if (result) {
+                        System.out.println("Successful edit");
+                    } else {
+                        System.out.println("Error edit");
+                    }
 
                     break;
                 case 3:
                     System.out.println("=== Delete Item ====");
                     System.out.print("Enter id: ");
                     id = Integer.valueOf(scanner.nextLine());
-                    boolean result = tracker.delete(id);
+                    result = tracker.delete(id);
                     if (result) {
                         System.out.println("Successful delete");
                     } else {
