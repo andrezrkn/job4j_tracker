@@ -41,8 +41,8 @@ public class StartUI {
                     id = Integer.valueOf(scanner.nextLine());
                     System.out.print("Enter new name: ");
                     name = scanner.nextLine();
-                    item.setName(name);
-                    //item = new Item(name);
+                    //item.setName(name);
+                    item = new Item(name);
                     result = tracker.replace(id, item);
                     if (result) {
                         System.out.println("Successful edit");
