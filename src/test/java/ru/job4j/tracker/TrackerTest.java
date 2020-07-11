@@ -39,4 +39,29 @@ public class TrackerTest {
         tracker.delete(id);
         assertThat(tracker.findById(id), is(nullValue()));
     }
+
+    @Test
+    public void whenRenameTrue() {
+        Tracker tracker = new Tracker();
+        String name = "1";
+        Item item = new Item(name);
+        tracker.add(item);
+        name = "2";
+        item = new Item(name);
+        tracker.add(item);
+        name = "3";
+        item = new Item(name);
+        tracker.add(item);
+        int editId = 1;
+        String editName = "5";
+        item.setName(editName);
+        boolean result = tracker.replace(editId, item);
+        assertThat(tracker.findById(1).getId(), is(1));
+        assertThat(tracker.findById(1).getName(), is("5"));
+        assertThat(tracker.findById(2).getId(), is(2));
+        assertThat(tracker.findById(2).getName(), is("2"));
+        assertThat(tracker.findById(3).getId(), is(3));
+        assertThat(tracker.findById(3).getName(), is("3"));
+    }
+
 }
