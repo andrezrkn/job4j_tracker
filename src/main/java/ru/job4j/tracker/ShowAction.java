@@ -10,8 +10,7 @@ public class ShowAction implements UserAction {
     public boolean execute(Input input, Tracker tracker) {
         Item[] itemMass = tracker.findAll();
         for (int index = 0; index < itemMass.length; index++) {
-            System.out.println("id: " + itemMass[index].getId());
-            System.out.println("name: " + itemMass[index].getName());
+            System.out.println(itemMass[index]);
         }
         return true;
     }
