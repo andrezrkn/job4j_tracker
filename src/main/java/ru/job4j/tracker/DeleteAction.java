@@ -9,14 +9,12 @@ public class DeleteAction implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         boolean result;
-        int idEdit = input.askInt("Enter id: ");
-        String nameEdit = input.askStr("Enter new name: ");
-        Item itemEdit = new Item(nameEdit);
-        result = tracker.replace(idEdit, itemEdit);
+        int id = input.askInt("Enter id: ");
+        result = tracker.delete(id);
         if (result) {
-            System.out.println("Successful edit");
+            System.out.println("Successful delete");
         } else {
-            System.out.println("Error edit");
+            System.out.println("Error delete");
         }
         return true;
     }

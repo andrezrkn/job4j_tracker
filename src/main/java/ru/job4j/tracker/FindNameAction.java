@@ -8,9 +8,11 @@ public class FindNameAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        String nameCreate  = input.askStr("Enter name: ");
-        Item item = new Item(nameCreate);
-        tracker.add(item);
+        String nameItems  = input.askStr("Enter name: ");
+        Item[] itemMass = tracker.findByName(nameItems);
+        for (int j = 0; j < itemMass.length; j++) {
+            System.out.println("id: " + itemMass[j].getId());
+        }
         return true;
     }
 }

@@ -8,10 +8,12 @@ public class FindIdAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        String nameItems = input.askStr("Enter name: ");
-        Item[] itemMass = tracker.findByName(nameItems);
-        for (int j = 0; j < itemMass.length; j++) {
-            System.out.println(itemMass[j].getId());
+        int id = input.askInt("Enter id: ");
+        Item itemFind = tracker.findById(id);
+        if (itemFind == null) {
+            System.out.println("No item found.");
+        } else {
+            System.out.println("Name: " + itemFind.getName());
         }
         return true;
     }
