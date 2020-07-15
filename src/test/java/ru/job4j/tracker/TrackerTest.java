@@ -153,7 +153,6 @@ public class TrackerTest {
 
     @Test
     public void whenFindByName() {
-        Output output = new ConsoleOutput();
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "1", "1", "1", "2"}
@@ -161,7 +160,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new CreateAction(),
-                new FindNameAction(output),
+                new FindNameAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
@@ -178,6 +177,8 @@ public class TrackerTest {
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Find items by name ====" + System.lineSeparator() +
                         "2. === Exit ====" + System.lineSeparator() +
+                        "id: 1" + System.lineSeparator() +
+                        "id: 2" + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Find items by name ====" + System.lineSeparator() +
@@ -188,7 +189,6 @@ public class TrackerTest {
 
     @Test
     public void whenFindById() {
-        Output output = new ConsoleOutput();
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "1", "2"}
@@ -196,7 +196,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new CreateAction(),
-                new FindIdAction(output),
+                new FindIdAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
@@ -213,6 +213,7 @@ public class TrackerTest {
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Find item by id ====" + System.lineSeparator() +
                         "2. === Exit ====" + System.lineSeparator() +
+                        "Name: 1" + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Find item by id ====" + System.lineSeparator() +
@@ -223,7 +224,6 @@ public class TrackerTest {
 
     @Test
     public void whenShowAction() {
-        Output output = new ConsoleOutput();
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "2"}
@@ -231,7 +231,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
                 new CreateAction(),
-                new ShowAction(output),
+                new ShowAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
@@ -248,6 +248,8 @@ public class TrackerTest {
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Show all items ====" + System.lineSeparator() +
                         "2. === Exit ====" + System.lineSeparator() +
+                        "Item{id=1, name='1'}" + System.lineSeparator() +
+                        "Item{id=2, name='2'}" + System.lineSeparator() +
                         "Menu" + System.lineSeparator() +
                         "0. === Create a new Item ====" + System.lineSeparator() +
                         "1. === Show all items ====" + System.lineSeparator() +
