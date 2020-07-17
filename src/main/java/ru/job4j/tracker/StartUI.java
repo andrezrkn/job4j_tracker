@@ -12,7 +12,7 @@ public class StartUI {
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select: ");
-            while (select < 0 || select > 6) {
+            while (select < 0 || select >= actions.length) {
                 select = input.askInt("Select an existing menu item ");
             }
             UserAction action = actions[select];
