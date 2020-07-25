@@ -16,7 +16,7 @@ public class PhoneDictionary {
                     element.getName().contains(key) ||
                     element.getPhone().contains(key) ||
                     element.getAddress().contains(key)) {
-                result = persons;
+                result.add(element);
             }
         }
         return result;
