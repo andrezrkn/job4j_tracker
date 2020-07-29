@@ -15,7 +15,7 @@ public class StartUI {
         while (run) {
             this.showMenu(actions);
             int select = input.askInt("Select: ");
-            while (select < 0 || select > 6) {
+            while (select < 0 || select > actions.size() - 1) {
                 select = input.askInt("Select an existing menu item ");
             }
             UserAction action = actions.get(select);
@@ -25,7 +25,7 @@ public class StartUI {
 
     private void showMenu(List<UserAction> actions) {
         out.println("Menu");
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < actions.size(); i++) {
             out.println(i + ". " + actions.get(i).name());
         }
     }
