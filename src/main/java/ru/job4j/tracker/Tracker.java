@@ -35,8 +35,8 @@ public class Tracker {
         if (index != -1) {
             //items[index] = item;
             //items[index].setId(id);
+            item.setId(id);
             items.set(index, item);
-            items.set(index, item).setId(id);
            //Item i = items.get(index);
            // i.setId(id);
             //items.set(index, i);
@@ -68,12 +68,10 @@ public class Tracker {
     }
 
     public List<Item> findByName(String key) {
-        int sizeMass = 0;
         List<Item> namesKey = new ArrayList<>();
         for (Item element : items) {
             if (element.getName().equals(key)) {
-                namesKey.add(sizeMass, element);
-                sizeMass++;
+                namesKey.add(element);
             }
         }
         return namesKey;
