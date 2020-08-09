@@ -15,18 +15,20 @@ public class BankService {
     public void addAccount(String passport, Account account) {
         boolean flag = true;
         User citizen = findByPassport(passport);
-        List<Account> accounts = users.get(citizen);
-        for (Account element : accounts) {
-            if (element.getRequisite() == account.getRequisite()) {
-                flag = false;
-                break;
+        if (!citizen.equals(null)) {
+            List<Account> accounts = users.get(citizen);
+            for (Account element : accounts) {
+                if (element.getRequisite().equals(account.getRequisite())) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                accounts.add(account);
+                users.remove(citizen);
+                users.put(citizen, accounts);
             }
         }
-         if (flag) {
-             accounts.add(account);
-             users.remove(citizen);
-             users.put(citizen, accounts);
-         }
     }
 
     public User findByPassport(String passport) {
@@ -43,19 +45,14 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         Account rsl = null;
         User user = null;
-        for (Map.Entry<User, List<Account>> element : users.entrySet()) {
-            if (element.getKey().getPassport() == passport) {
-                user = element.getKey();
-                break;
-            }
-        }
+        user = findByPassport(passport);
         if (user != null) {
             List<Account> req = new ArrayList<>();
             for (Account element : users.get(user)) {
                 req.add(element);
             }
             for (Account element : req) {
-                if (element.getRequisite() == requisite) {
+                if (element.getRequisite().equals(requisite)) {
                     rsl = element;
                     break;
                 }
@@ -72,7 +69,7 @@ public class BankService {
         srcUser = destUser = null;
         srcAccount = destAccount = null;
         for (Map.Entry<User, List<Account>> element : users.entrySet()) {
-            if (element.getKey().getPassport() == srcPassport) {
+            if (element.getKey().getPassport().equals(srcPassport)) {
                 srcUser = element.getKey();
                 break;
             }
@@ -80,14 +77,14 @@ public class BankService {
         if (srcUser != null) {
             List<Account> mass = users.get(srcUser);
             for (Account element : mass) {
-                if (element.getRequisite() == srcRequisite) {
+                if (element.getRequisite().equals(srcRequisite)) {
                     srcAccount = element;
                     break;
                 }
             }
             if (srcAccount.getBalance() - amount >= 0) {
                 for (Map.Entry<User, List<Account>> element : users.entrySet()) {
-                    if (element.getKey().getPassport() == destPassport) {
+                    if (element.getKey().getPassport().equals(destPassport)) {
                         destUser = element.getKey();
                         break;
                     }
@@ -95,7 +92,7 @@ public class BankService {
                 if (destUser != null) {
                     mass = users.get(srcUser);
                     for (Account element : mass) {
-                        if (element.getRequisite() == destRequisite) {
+                        if (element.getRequisite().equals(destRequisite)) {
                             destAccount = element;
                             srcAccount.setBalance(srcAccount.getBalance() - amount);
                             destAccount.setBalance(destAccount.getBalance() + amount);
