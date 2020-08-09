@@ -2,11 +2,12 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertNull;
 import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TrackerTest {
@@ -304,4 +305,35 @@ public class TrackerTest {
         assertThat(out.toString(), is("Please enter validate data again." + System.lineSeparator()));
     }
 
+    @Test
+    public void whenAscendingSort() {
+        List<Item> baseItems = Arrays.asList(
+                    new Item(0, "0"),
+                    new Item(2, "2"),
+                    new Item(1, "1")
+        );
+        List<Item> expectedItems = Arrays.asList(
+                new Item(0, "0"),
+                new Item(1, "1"),
+                new Item(2, "2")
+        );
+        baseItems = AscendingSort.sort(baseItems);
+        assertTrue(baseItems.equals(expectedItems));
+    }
+
+    @Test
+    public void whenDescendingSort() {
+        List<Item> baseItems = Arrays.asList(
+                new Item(0, "0"),
+                new Item(2, "2"),
+                new Item(1, "1")
+        );
+        List<Item> expectedItems = Arrays.asList(
+                new Item(2, "2"),
+                new Item(1, "1"),
+                new Item(0, "0")
+        );
+        baseItems = DescendingSort.sort(baseItems);
+        assertTrue(baseItems.equals(expectedItems));
+    }
 }
