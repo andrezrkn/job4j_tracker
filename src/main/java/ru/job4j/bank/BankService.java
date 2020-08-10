@@ -15,7 +15,7 @@ public class BankService {
     public void addAccount(String passport, Account account) {
         boolean flag = true;
         User citizen = findByPassport(passport);
-        if (!citizen.equals(null)) {
+        if (citizen != null) {
             List<Account> accounts = users.get(citizen);
             for (Account element : accounts) {
                 if (element.getRequisite().equals(account.getRequisite())) {
@@ -25,8 +25,6 @@ public class BankService {
             }
             if (flag) {
                 accounts.add(account);
-                users.remove(citizen);
-                users.put(citizen, accounts);
             }
         }
     }
@@ -47,11 +45,7 @@ public class BankService {
         User user = null;
         user = findByPassport(passport);
         if (user != null) {
-            List<Account> req = new ArrayList<>();
             for (Account element : users.get(user)) {
-                req.add(element);
-            }
-            for (Account element : req) {
                 if (element.getRequisite().equals(requisite)) {
                     rsl = element;
                     break;
@@ -64,44 +58,14 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        User srcUser, destUser;
         Account srcAccount, destAccount;
-        srcUser = destUser = null;
         srcAccount = destAccount = null;
-        for (Map.Entry<User, List<Account>> element : users.entrySet()) {
-            if (element.getKey().getPassport().equals(srcPassport)) {
-                srcUser = element.getKey();
-                break;
-            }
-        }
-        if (srcUser != null) {
-            List<Account> mass = users.get(srcUser);
-            for (Account element : mass) {
-                if (element.getRequisite().equals(srcRequisite)) {
-                    srcAccount = element;
-                    break;
-                }
-            }
-            if (srcAccount.getBalance() - amount >= 0) {
-                for (Map.Entry<User, List<Account>> element : users.entrySet()) {
-                    if (element.getKey().getPassport().equals(destPassport)) {
-                        destUser = element.getKey();
-                        break;
-                    }
-                }
-                if (destUser != null) {
-                    mass = users.get(srcUser);
-                    for (Account element : mass) {
-                        if (element.getRequisite().equals(destRequisite)) {
-                            destAccount = element;
-                            srcAccount.setBalance(srcAccount.getBalance() - amount);
-                            destAccount.setBalance(destAccount.getBalance() + amount);
-                            rsl = true;
-                            break;
-                        }
-                    }
-                }
-            }
+        srcAccount = findByRequisite(srcPassport, srcRequisite);
+        destAccount = findByRequisite(destPassport, destRequisite);
+        if (srcAccount != null && destAccount != null && srcAccount.getBalance() - amount >= 0) {
+            srcAccount.setBalance(srcAccount.getBalance() - amount);
+            destAccount.setBalance(destAccount.getBalance() + amount);
+            rsl = true;
         }
         return rsl;
     }
