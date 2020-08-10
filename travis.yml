@@ -11,10 +11,6 @@ sudo: false
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-env:
-  global:
-    - CODECOV_TOKEN="ec50da68-e198-48d1-8a6a-e493232e30e3"
-
 # Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
 notifications:
   email:
@@ -22,3 +18,7 @@ notifications:
       -vartan.andreevich@yandex.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+    env:
+      global:
+        - CODECOV_TOKEN="ec50da68-e198-48d1-8a6a-e493232e30e3"
