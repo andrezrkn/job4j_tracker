@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class ShopTest {
     @Test
-    public void whenLastNull() {
+    public void whenLastNull(){
         Product products[] = new Product[5];
         products[0] = new Product("Milk", 10);
         products[1] = new Product("Bread", 4);
@@ -17,7 +17,7 @@ public class ShopTest {
     }
 
     @Test
-    public void whenFirstNull() {
+    public void whenFirstNull(){
         Product products[] = new Product[5];
         products[1] = new Product("Milk", 10);
         int rsl = Shop.indexOfNull(products);
@@ -25,7 +25,7 @@ public class ShopTest {
     }
 
     @Test
-    public void whenHasNotNull() {
+    public void whenHasNotNull(){
         Product products[] = new Product[1];
         products[0] = new Product("Milk", 10);
         int rsl = Shop.indexOfNull(products);

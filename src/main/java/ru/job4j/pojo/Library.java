@@ -2,10 +2,10 @@ package ru.job4j.pojo;
 
 public class Library {
     public static void main(String[] args) {
-        Book first = new Book ("Clean Code", 464);
-        Book second = new Book ("Holy Bible", 1500);
-        Book third = new Book ("Koran", 900);
-        Book fourth = new Book ("Russian-English translator", 600);
+        Book first = new Book("Clean Code", 464);
+        Book second = new Book("Holy Bible", 1500);
+        Book third = new Book("Koran", 900);
+        Book fourth = new Book("Russian-English translator", 600);
         Book[] library = new Book[4];
         library[0] = first;
         library[1] = second;
