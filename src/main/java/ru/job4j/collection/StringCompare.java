@@ -8,23 +8,15 @@ public class StringCompare implements Comparator<String> {
         int lengthLeft, lengthRight, length, rsl = 0;
         lengthLeft = left.length();
         lengthRight = right.length();
-        length = lengthLeft <= lengthRight ? lengthLeft : lengthRight;
+        length = Math.min(lengthLeft, lengthRight);
         for (int i = 0; i < length; i++) {
-            if (Character.compare(left.charAt(i), right.charAt(i)) == 0) {
-                continue;
-            } else if (Character.compare(left.charAt(i), right.charAt(i)) < 0) {
-                return -1;
-            } else {
-                return 1;
+            rsl = Character.compare(left.charAt(i), right.charAt(i));
+            if (rsl != 0) {
+                break;
             }
         }
         if (rsl == 0) {
-            if (lengthLeft < lengthRight) {
-                rsl =  -1;
-            }
-            if (lengthLeft > lengthRight) {
-                rsl = 1;
-            }
+            rsl = Integer.compare(lengthLeft, lengthRight);
         }
         return rsl;
     }
