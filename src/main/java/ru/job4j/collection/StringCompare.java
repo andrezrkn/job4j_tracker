@@ -13,16 +13,14 @@ public class StringCompare implements Comparator<String> {
             if (Character.compare(left.charAt(i), right.charAt(i)) == 0) {
                 continue;
             } else if (Character.compare(left.charAt(i), right.charAt(i)) < 0) {
-                rsl = -1;
-                break;
+                return -1;
             } else {
-                rsl = 1;
-                break;
+                return 1;
             }
         }
         if (rsl == 0) {
             if (lengthLeft < lengthRight) {
-                rsl = -1;
+                rsl =  -1;
             }
             if (lengthLeft > lengthRight) {
                 rsl = 1;
