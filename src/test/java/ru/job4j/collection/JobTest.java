@@ -29,6 +29,16 @@ public class JobTest {
     }
 
     @Test
+    public void whenDescendingByNameAndAscendingByPrority2() {
+        Comparator<Job> cmpNamePriority = new JobDescendingByName().thenComparing(new JobAscendingByPriority());
+        int rsl = cmpNamePriority.compare(
+                new Job("Fix bug", 0),
+                new Job("Fix bug", 1)
+        );
+        assertThat(rsl, lessThan(0));
+    }
+
+    @Test
     public void whenDescendingByName() {
         Comparator<Job> cmpNamePriority = new JobDescendingByName();
         int rsl = cmpNamePriority.compare(
