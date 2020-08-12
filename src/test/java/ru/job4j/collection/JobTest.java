@@ -61,7 +61,6 @@ public class JobTest {
         assertThat(rsl, lessThan(0));
     }
 
-
     @Test
     public void whenAscendingByName() {
         Comparator<Job> cmpNamePriority = new JobAscendingByName();

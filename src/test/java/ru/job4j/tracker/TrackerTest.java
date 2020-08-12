@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TrackerTest {
     @Test
-    public void whenAddNewItemThenTrackerHasSameItem(){
+    public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
         Item item = new Item();
         item.setName("test1");
@@ -21,7 +21,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenReplace(){
+    public void whenReplace() {
         Tracker tracker = new Tracker();
         Item bug = new Item();
         bug.setName("Bug");
@@ -34,7 +34,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDelete(){
+    public void whenDelete() {
         Tracker tracker = new Tracker();
         Item bug = new Item();
         bug.setName("Bug");
@@ -45,7 +45,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenAddItem(){
+    public void whenAddItem() {
         String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
@@ -56,7 +56,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenReplaceItem(){
+    public void whenReplaceItem() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
@@ -71,7 +71,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDeleteItem(){
+    public void whenDeleteItem() {
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = new Item("lol");
@@ -86,7 +86,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenCreateItem(){
+    public void whenCreateItem() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "Item name", "1"}
@@ -100,7 +100,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDeleteAction(){
+    public void whenDeleteAction() {
         Output out = new StubOutput();
         Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
@@ -116,7 +116,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenEditAction(){
+    public void whenEditAction() {
         Output output = new ConsoleOutput();
         Output out = new StubOutput();
         Tracker tracker = new Tracker();
@@ -135,7 +135,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenExit(){
+    public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0"}
@@ -145,13 +145,13 @@ public class TrackerTest {
         actions.add(0, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0. === Exit ====" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0. === Exit ====" + System.lineSeparator()
         ));
     }
 
     @Test
-    public void whenFindByName(){
+    public void whenFindByName() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "1", "1", "1", "2"}
@@ -163,30 +163,30 @@ public class TrackerTest {
         actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find items by name ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find items by name ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find items by name ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "id: 1" + System.lineSeparator() +
-                        "id: 2" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find items by name ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "id: 1" + System.lineSeparator()
+                        + "id: 2" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
 
         ));
     }
 
     @Test
-    public void whenFindById(){
+    public void whenFindById() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "1", "2"}
@@ -198,29 +198,29 @@ public class TrackerTest {
         actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find item by id ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find item by id ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find item by id ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Name: 1" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Find item by id ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Name: 1" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
 
         ));
     }
 
     @Test
-    public void whenShowAction(){
+    public void whenShowAction() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "2"}
@@ -232,36 +232,36 @@ public class TrackerTest {
         actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Show all items ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Show all items ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Show all items ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator() +
-                        "Item{id=1, name='1'}" + System.lineSeparator() +
-                        "Item{id=2, name='2'}" + System.lineSeparator() +
-                        "Menu" + System.lineSeparator() +
-                        "0. === Create a new Item ====" + System.lineSeparator() +
-                        "1. === Show all items ====" + System.lineSeparator() +
-                        "2. === Exit ====" + System.lineSeparator()
+                "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Show all items ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Show all items ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Show all items ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
+                        + "Item{id=1, name='1'}" + System.lineSeparator()
+                        + "Item{id=2, name='2'}" + System.lineSeparator()
+                        + "Menu" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "1. === Show all items ====" + System.lineSeparator()
+                        + "2. === Exit ====" + System.lineSeparator()
 
         ));
     }
 
     @Test
-    public void whenInvalidExit(){
+    public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"1", "0"}
         );
         Tracker tracker = new Tracker();
-        List<UserAction> actions = new ArrayList<>();;
+        List<UserAction> actions = new ArrayList<>();
         actions.add(0, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
@@ -272,7 +272,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenInvalidInput(){
+    public void whenInvalidInput() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"one", "1"}
@@ -283,7 +283,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenTrueInput(){
+    public void whenTrueInput() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"1", "2"}
@@ -294,18 +294,19 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenInvalidOutput(){
+    public void whenInvalidOutput() {
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[] {"one", "1"}
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(out.toString(), is("Please enter validate data again." + System.lineSeparator()));
+        assertThat(out.toString(), is("Please enter validate data again."
+                + System.lineSeparator()));
     }
 
     @Test
-    public void whenAscendingSort(){
+    public void whenAscendingSort() {
         List<Item> baseItems = Arrays.asList(
                     new Item(0, "0"),
                     new Item(2, "2"),
@@ -321,7 +322,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenDescendingSort(){
+    public void whenDescendingSort() {
         List<Item> baseItems = Arrays.asList(
                 new Item(0, "0"),
                 new Item(2, "2"),
