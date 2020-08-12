@@ -7,40 +7,21 @@ public class LexSort implements Comparator<String> {
     @Override
     public int compare(String left, String right) {
         int rsl = 0;
-            if (left.charAt(0) >= 0x30 && left.charAt(0) <= 0x39
-                    && right.charAt(0) >= 0x30 && right.charAt(0) <= 0x39) {
-                if (Character.compare(left.charAt(0), right.charAt(0)) == 0) {
-                    rsl = compare(left.substring(1), right.substring(1));
-                } else if (Character.compare(left.charAt(0), right.charAt(0)) < 0) {
-                    if (left.length() != 1 && right.length() != 1) {
-                        if (left.charAt(1) >= 0x30 && left.charAt(1) <= 0x39
-                                && (right.charAt(1) < 0x30 || right.charAt(1) > 0x39)) {
-                            return 1;
-                        } else if ((left.charAt(1) < 0x30 || left.charAt(1) > 0x39)
-                                && right.charAt(1) >= 0x30 && right.charAt(1) <= 0x39) {
-                            return -1;
-                        }
-                    }
-                    rsl = -1;
-                } else {
-                    if (left.length() != 1 && right.length() != 1) {
-                        if (left.charAt(1) >= 0x30 && left.charAt(1) <= 0x39
-                                && (right.charAt(1) < 0x30 || right.charAt(1) > 0x39)) {
-                            return 1;
-                        } else if ((left.charAt(1) < 0x30 || left.charAt(1) > 0x39)
-                                && right.charAt(1) >= 0x30 && right.charAt(1) <= 0x39) {
-                            return -1;
-                        }
-                    }
-                    rsl = 1;
-                }
-            } else if ((left.charAt(0) < 0x30 || left.charAt(0) > 0x39)
-                    && (right.charAt(0) >= 0x30 && right.charAt(0) <= 0x39)) {
+        String[] l = left.split(".");
+        String[] r = right.split(".");
+        int length = Math.min(l.length, r.length);
+        for (int i = 0; i < length; i++) {
+            if (Integer.parseInt(l[i]) < Integer.parseInt(r[i])) {
                 rsl = -1;
-            } else if ((left.charAt(0) >= 0x30 && left.charAt(0) <= 0x39)
-                    && (right.charAt(0) < 0x30 || right.charAt(0) > 0x39)) {
+                break;
+            } else if (Integer.parseInt(l[i]) > Integer.parseInt(r[i])) {
                 rsl = 1;
+                break;
             }
+        }
+        if (rsl == 0) {
+            rsl = Integer.compare(l.length, r.length);
+        }
         return rsl;
     }
 }

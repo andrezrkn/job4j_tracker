@@ -21,18 +21,4 @@ public class LexSortTest {
         Arrays.sort(input, new LexSort());
         assertThat(input, is(out));
     }
-
-    @Test
-    public void sort() {
-        String[] input = {
-                "101",
-                "100"
-        };
-        String[] out = {
-                "100",
-                "101"
-        };
-        Arrays.sort(input, new LexSort());
-        assertThat(input, is(out));
-    }
 }
