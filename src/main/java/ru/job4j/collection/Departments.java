@@ -9,68 +9,18 @@ public class Departments {
 
     public static List<String> fillGaps(List<String> deps) {
         HashSet<String> tmp = new HashSet<>();
-        List<String> rsl = new ArrayList<>();
         for (String value : deps) {
-            Collections.addAll(tmp, value.split("/"));
+            String  start = "";
+            for (String el : value.split("/")) {
+                if (start.equals("")) {
+                    start = el;
+                } else {
+                    start = start + "/" + el;
+                }
+                tmp.add(start);
+            }
         }
-                if (tmp.contains("K1")) {
-                    rsl.add("K1");
-                }
-                if (tmp.contains("K2")) {
-                    rsl.add("K2");
-                }
-                if (tmp.contains("SK1")) {
-                    if (tmp.contains("K1")) {
-                        rsl.add("K1/SK1");
-                    }
-                    if (tmp.contains("K2")) {
-                        rsl.add("K2/SK1");
-                    }
-                }
-                if (tmp.contains("SK2")) {
-                    if (tmp.contains("K1")) {
-                        rsl.add("K1/SK2");
-                    }
-                    if (tmp.contains("K2")) {
-                        rsl.add("K2/SK2");
-                    }
-                }
-                if (tmp.contains("SSK1")) {
-                    if (tmp.contains("SK1")) {
-                        if (tmp.contains("K1")) {
-                            rsl.add("K1/SK1/SSK1");
-                        }
-                        if (tmp.contains("K2")) {
-                            rsl.add("K2/SK1/SSK1");
-                        }
-                    }
-                    if (tmp.contains("SK2")) {
-                        if (tmp.contains("K1")) {
-                            rsl.add("K1/SK2/SSK1");
-                        }
-                        if (tmp.contains("K2")) {
-                            rsl.add("K2/SK2/SSK1");
-                        }
-                    }
-                }
-                if (tmp.contains("SSK2")) {
-                    if (tmp.contains("SK1")) {
-                        if (tmp.contains("K1")) {
-                            rsl.add("K1/SK1/SSK2");
-                        }
-                        if (tmp.contains("K2")) {
-                            rsl.add("K2/SK1/SSK2");
-                        }
-                    }
-                    if (tmp.contains("SK2")) {
-                        if (tmp.contains("K1")) {
-                            rsl.add("K1/SK2/SSK2");
-                        }
-                        if (tmp.contains("K2")) {
-                            rsl.add("K2/SK2/SSK2");
-                        }
-                    }
-                }
+        List<String> rsl = new ArrayList<>(tmp);
         return rsl;
     }
 

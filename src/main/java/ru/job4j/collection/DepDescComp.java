@@ -6,13 +6,11 @@ public class DepDescComp implements Comparator<String> {
     @Override
     public int compare(String o1, String o2) {
         int rsl;
-        if ((o1.contains("K1") && o2.contains("K1"))
-                        || (o1.contains("K2") && o2.contains("K2"))) {
+        String[] massOj1 = o1.split("/");
+        String[] massOj2 = o2.split("/");
+        rsl = massOj2[0].compareTo(massOj1[0]);
+        if (rsl == 0) {
             rsl = o1.compareTo(o2);
-        } else {
-            o1 = o1.substring(2);
-            o2 = o2.substring(2);
-            rsl = o2.compareTo(o1);
         }
         return rsl;
     }
