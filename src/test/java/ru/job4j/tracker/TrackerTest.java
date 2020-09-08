@@ -122,7 +122,8 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Replaced item"));
-        /* Входные данные должны содержать ID добавленной заявки item.getId() */
+        /* Входные данные должны содержать ID добавленной заявки
+        item.getId() */
         String replacedName = "New item name";
         Input in = new StubInput(
                 new String[] {"0", "1", replacedName, "1"}
@@ -164,22 +165,30 @@ public class TrackerTest {
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find items by name ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find items by name ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find items by name ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "id: 1" + System.lineSeparator()
                         + "id: 2" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find items by name ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find items by name ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
 
         ));
@@ -199,21 +208,30 @@ public class TrackerTest {
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find item by id ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find item by id ====" + System.lineSeparator()
-                        + "2. === Exit ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find item by id ====" + System
+                        .lineSeparator()
+                        + "2. === Exit ====" + System
+                        .lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find item by id ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Name: 1" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
-                        + "1. === Find item by id ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
+                        + "1. === Find item by id ====" + System
+                        .lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
 
         ));
@@ -233,21 +251,25 @@ public class TrackerTest {
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
                         + "1. === Show all items ====" + System.lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
                         + "1. === Show all items ====" + System.lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
                         + "1. === Show all items ====" + System.lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
                         + "Item{id=1, name='1'}" + System.lineSeparator()
                         + "Item{id=2, name='2'}" + System.lineSeparator()
                         + "Menu" + System.lineSeparator()
-                        + "0. === Create a new Item ====" + System.lineSeparator()
+                        + "0. === Create a new Item ====" + System
+                        .lineSeparator()
                         + "1. === Show all items ====" + System.lineSeparator()
                         + "2. === Exit ====" + System.lineSeparator()
 

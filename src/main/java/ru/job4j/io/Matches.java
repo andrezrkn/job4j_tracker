@@ -18,7 +18,8 @@ public class Matches {
             System.out.println("Сколько спичек вы забираете?");
             int select = Integer.valueOf(input.nextLine());
             while (select < 1 || select > 3) {
-                System.out.println("Заберите 1, 2, 3 спички. Не больше и не меньше.");
+                System.out.println("Заберите 1, 2, 3 спички. "
+                        + "Не больше и не меньше.");
                 select = Integer.valueOf(input.nextLine());
             }
             matches -= select;

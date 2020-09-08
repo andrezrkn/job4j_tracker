@@ -13,19 +13,22 @@ public class Library {
         library[3] = fourth;
         for (int index = 0; index < library.length; index++) {
             Book ml = library[index];
-            System.out.println(ml.getName() + System.lineSeparator() + ml.getPagesQuantity());
+            System.out.println(ml.getName() + System.lineSeparator()
+                    + ml.getPagesQuantity());
         }
         Book mlt = library[0];
         library[0] = library[3];
         library[3] = mlt;
         for (int index = 0; index < library.length; index++) {
             Book mlx = library[index];
-            System.out.println(mlx.getName() + System.lineSeparator() + mlx.getPagesQuantity());
+            System.out.println(mlx.getName() + System.lineSeparator()
+                    + mlx.getPagesQuantity());
         }
         for (int index = 0; index < library.length; index++) {
             if (library[index].getName().equals("Clean Code")) {
                 Book mlf = library[index];
-                System.out.println(mlf.getName() + System.lineSeparator() + mlf.getPagesQuantity());
+                System.out.println(mlf.getName() + System.lineSeparator()
+                        + mlf.getPagesQuantity());
             }
         }
     }

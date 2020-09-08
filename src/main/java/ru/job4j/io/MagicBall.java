@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class MagicBall {
     public static void main(String[] args) {
-        System.out.println("Я великий Оракул. Что ты хочешь узнать? Введи закрытый вопрос. ");
+        System.out.println("Я великий Оракул. Что ты хочешь узнать? "
+                + "Введи закрытый вопрос. ");
         Scanner input = new Scanner(System.in);
         String question = input.nextLine();
         int answer = new Random().nextInt(3);
