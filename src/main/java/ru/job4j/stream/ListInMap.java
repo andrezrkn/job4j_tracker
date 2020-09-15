@@ -7,14 +7,19 @@ public class ListInMap {
     public static void main(String[] args) {
         List<Student> mass = List.of(
                 new Student("1", 98),
-                new Student("2", 99),
+                new Student("1", 99),
                 new Student("3", 100)
         );
         mass.stream()
                 .collect(
                         Collectors.toMap(
                                 Student::getSurname,
-                                Student -> Student
+                                Student -> Student,
+                                (a, b) -> {
+                                    int id = 0;
+                                    a.setSurname(a.getSurname() + ++id);
+                                    return a;
+                                }
                         )
                 );
     }
