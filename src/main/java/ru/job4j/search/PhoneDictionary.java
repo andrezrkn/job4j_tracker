@@ -17,7 +17,7 @@ public class PhoneDictionary {
                 or(t -> t.getSurname().contains(key))
                 .or(t -> t.getAddress().contains(key));
         ArrayList<Person> result = new ArrayList<>();
-        for (Person element : persons) {
+        for (var element : persons) {
             if (combine.test(element)) {
                 result.add(element);
             }
