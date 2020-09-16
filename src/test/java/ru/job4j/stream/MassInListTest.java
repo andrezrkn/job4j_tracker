@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class MassInListTest {
     @Test
-    public void when1_9() {
+    public void from1to9() {
         MassInList massinlist = new MassInList();
         Integer[][] mass = {
                 {1, 2, 3},
@@ -27,7 +27,7 @@ public class MassInListTest {
     }
 
     @Test
-    public void when1_4() {
+    public void from1to4() {
         MassInList massinlist = new MassInList();
         Integer[][] mass = {
                 {1, 2},
@@ -42,7 +42,7 @@ public class MassInListTest {
     }
 
     @Test
-    public void when1_16() {
+    public void from1to16() {
         MassInList massinlist = new MassInList();
         Integer[][] mass = {
                 {1, 2, 3, 4},
