@@ -37,7 +37,7 @@ public class BankService {
 
     public Optional<Account> findByRequisite(String passport,
                                              String requisite) {
-        Optional<Account> rslOpt = null;
+        Optional<Account> rslOpt = Optional.empty();
         Optional<User> userOpt = findByPassport(passport);
         if (userOpt.isPresent()) {
             rslOpt = users.get(userOpt.get())
