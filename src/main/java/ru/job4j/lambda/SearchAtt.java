@@ -2,51 +2,29 @@ package ru.job4j.lambda;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 public class SearchAtt {
-    public static List<Attachment> filter(String c1,
-                                          BiFunction<String, String,
-                                                  Boolean> func,
-                                          List<Attachment> list,
-                                          boolean flag) {
-        //flag = true - filterName, false - filterSize
+    public static List<Attachment> filter(Predicate<Attachment> predicate,
+                                          List<Attachment> list) {
         List<Attachment> rsl = new ArrayList<>();
         for (Attachment element : list) {
-            if (flag) {
-                if (func.apply(c1, element.getName())) {
-                    rsl.add(element);
-                }
-            } else {
-                if (func.apply(c1, element.getName())) {
-                    rsl.add(element);
-                }
+            if (predicate.test(element)) {
+                rsl.add(element);
             }
         }
         return rsl;
     }
 
     public static List<Attachment> filterSize(List<Attachment> list) {
-        BiFunction<String, String, Boolean> func = new BiFunction<String,
-                String, Boolean>() {
-            @Override
-            public Boolean apply(String s, String s2) {
-                int integerS = Integer.parseInt(s);
-                int integerS2 = Integer.parseInt(s2);
-                return integerS2 > integerS;
-            }
-        };
-        return filter("100", func, list, false);
+        Predicate<Attachment> predicate = Attachment ->
+                Attachment.getSize() > 100;
+        return filter(predicate, list);
     }
 
     public static List<Attachment> filterName(List<Attachment> list) {
-        BiFunction<String, String, Boolean> func = new BiFunction<String,
-                String, Boolean>() {
-            @Override
-            public Boolean apply(String s, String s2) {
-                return s.contains(s2);
-            }
-        };
-        return filter("bug", func, list, true);
+        Predicate<Attachment> predicate = Attachment ->
+                Attachment.getName().contains("bug");
+        return filter(predicate, list);
     }
 }
