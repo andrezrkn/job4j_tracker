@@ -1,10 +1,6 @@
 package ru.job4j.stream;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
@@ -45,12 +41,20 @@ public class Analyze {
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
         List<List<Subject>> pSubjects = stream.map(Pupil::getSubjects)
                 .collect(Collectors.toList());
+        Map<String, Double> mass = new HashMap<>();
+        List<Tuple> rsl = new ArrayList<>();
         for (List<Subject> element : pSubjects) {
-            element.stream()
-                    .collect(Collectors.groupingBy(Subject::getName),
+            mass = element.stream()
+                    .collect(Collectors.groupingBy(Subject::getName,
                             Collectors.averagingDouble(Subject::getScore)
+                            )
                     );
         }
+        for (Map.Entry<String, Double> element : mass.entrySet()) {
+            rsl.add(new Tuple(element.getKey(), element.getValue()));
+            System.out.println(element.getKey() + element.getValue());
+        }
+        return rsl;
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
