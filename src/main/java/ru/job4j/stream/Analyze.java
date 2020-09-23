@@ -50,9 +50,9 @@ public class Analyze {
                             )
                     );
         }
-        for (Map.Entry<String, Double> element : mass.entrySet()) {
-            rsl.add(new Tuple(element.getKey(), element.getValue()));
-            System.out.println(element.getKey() + element.getValue());
+        for (Map.Entry<String, Double> elem : mass.entrySet()) {
+            rsl.add(new Tuple(elem.getKey(), elem.getValue()));
+            System.out.println(elem.getKey() + elem.getValue());
         }
         return rsl;
     }
