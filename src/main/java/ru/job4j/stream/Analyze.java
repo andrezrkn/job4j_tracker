@@ -7,75 +7,57 @@ import java.util.stream.Collectors;
 public class Analyze {
 
     public static double averageScore(Stream<Pupil> stream) {
-        double average = 0D;
-        OptionalDouble av =  stream.mapToInt(
-                e -> e.getSubjects()
-                        .stream()
-                        .mapToInt(
-                                Subject::getScore
-                        ).sum()
-        ).average();
-        if (av.isPresent()) {
-            average = av.getAsDouble();
-        }
-        return average;
+        return stream
+                .flatMap(p -> p.getSubjects().stream())
+                .mapToInt(Subject::getScore)
+                .average()
+                .orElse(0D);
     }
 
     public static List<Tuple> averageScoreBySubject(Stream<Pupil> stream) {
-         return stream.map(
-                e -> {
-                    double average = 0D;
-                    OptionalDouble av = e.getSubjects()
-                            .stream()
-                            .mapToInt(
-                                    Subject::getScore
-                            ).average();
-                    if (av.isPresent()) {
-                        average = av.getAsDouble();
-                    }
-                    return new Tuple(e.getName(), average);
-                }
-        ).collect(Collectors.toList());
+        return stream
+                .map(e -> new Tuple(e.getName(), e.getSubjects()
+                                .stream()
+                                .mapToInt(Subject::getScore)
+                                .average().orElse(0D)
+                        )
+                ).collect(Collectors.toList());
     }
 
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
-        List<List<Subject>> pSubjects = stream.map(Pupil::getSubjects)
+        return stream
+                .flatMap(p -> p.getSubjects().stream())
+                .collect(
+                        Collectors.groupingBy(
+                                Subject::getName,
+                                LinkedHashMap::new,
+                                Collectors.averagingDouble(Subject::getScore)
+                        )
+                ).entrySet()
+                .stream()
+                .map(e -> new Tuple(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
-        Map<String, Double> mass = new HashMap<>();
-        List<Tuple> rsl = new ArrayList<>();
-        for (List<Subject> element : pSubjects) {
-            mass = element.stream()
-                    .collect(Collectors.groupingBy(Subject::getName,
-                            Collectors.averagingDouble(Subject::getScore)
-                            )
-                    );
-        }
-        for (Map.Entry<String, Double> elem : mass.entrySet()) {
-            rsl.add(new Tuple(elem.getKey(), elem.getValue()));
-            System.out.println(elem.getKey() + elem.getValue());
-        }
-        return rsl;
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
-        Tuple max = new Tuple("", -1);
-        List<Tuple> list = stream.map(
+        return stream.map(
                 e -> new Tuple(e.getName(), e.getSubjects()
                             .stream()
-                            .mapToInt(
-                                    Subject::getScore
-                            ).sum()
+                            .mapToInt(Subject::getScore)
+                        .sum()
                 )
-                ).collect(Collectors.toList());
-        for (Tuple element : list) {
-            if (element.getScore() > max.getScore()) {
-                max = element;
-            }
-        }
-        return max;
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
-        return null;
+        return stream
+                .flatMap(p -> p.getSubjects().stream())
+                .collect(
+                        Collectors.groupingBy(
+                                Subject::getName,
+                                LinkedHashMap::new,
+                                Collectors.summingInt(Subject::getScore)
+                        )
+                ).entrySet()
+                .stream()
     }
 }
