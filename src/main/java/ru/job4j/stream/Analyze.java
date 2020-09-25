@@ -1,5 +1,6 @@
 package ru.job4j.stream;
 
+import java.security.KeyStore;
 import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
@@ -17,9 +18,9 @@ public class Analyze {
     public static List<Tuple> averageScoreBySubject(Stream<Pupil> stream) {
         return stream
                 .map(e -> new Tuple(e.getName(), e.getSubjects()
-                                .stream()
-                                .mapToInt(Subject::getScore)
-                                .average().orElse(0D)
+                        .stream()
+                        .mapToInt(Subject::getScore)
+                        .average().orElse(0D)
                         )
                 ).collect(Collectors.toList());
     }
@@ -40,12 +41,16 @@ public class Analyze {
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
-        return stream.map(
-                e -> new Tuple(e.getName(), e.getSubjects()
-                            .stream()
-                            .mapToInt(Subject::getScore)
+        return stream
+                .map(e -> new Tuple(e.getName(), e.getSubjects()
+                        .stream()
+                        .mapToInt(Subject::getScore)
                         .sum()
-                )
+                        )
+                ).max(
+                        (o1, o2) ->
+                                Double.compare(o1.getScore(), o2.getScore())
+                ).orElse(new Tuple("", 0D));
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
@@ -59,5 +64,10 @@ public class Analyze {
                         )
                 ).entrySet()
                 .stream()
+                .max(
+                        (o1, o2) ->
+                                Integer.compare(o1.getValue(), o2.getValue())
+                ).map(e -> new Tuple(e.getKey(), e.getValue()))
+                .orElse(new Tuple("", 0D));
     }
 }
