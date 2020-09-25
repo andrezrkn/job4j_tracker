@@ -48,8 +48,7 @@ public class Analyze {
                         .sum()
                         )
                 ).max(
-                        (o1, o2) ->
-                                Double.compare(o1.getScore(), o2.getScore())
+                        Comparator.comparingDouble(Tuple::getScore)
                 ).orElse(new Tuple("", 0D));
     }
 
@@ -65,8 +64,7 @@ public class Analyze {
                 ).entrySet()
                 .stream()
                 .max(
-                        (o1, o2) ->
-                                Integer.compare(o1.getValue(), o2.getValue())
+                        Comparator.comparingInt(Map.Entry::getValue)
                 ).map(e -> new Tuple(e.getKey(), e.getValue()))
                 .orElse(new Tuple("", 0D));
     }
