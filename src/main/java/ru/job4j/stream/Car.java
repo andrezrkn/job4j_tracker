@@ -59,6 +59,19 @@ public class Car {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brand='" + brand + '\'' +
+                ", body='" + body + '\'' +
+                ", driveUnit='" + driveUnit + '\'' +
+                ", engine='" + engine + '\'' +
+                ", enginePosition='" + enginePosition + '\'' +
+                ", maxSpeed=" + maxSpeed +
+                ", numOfDoors=" + numOfDoors +
+                '}';
+    }
+
     public static void main(String[] args) {
         Car car = new Builder().buildBrand("volvo")
                 .buildBody("wagon")
