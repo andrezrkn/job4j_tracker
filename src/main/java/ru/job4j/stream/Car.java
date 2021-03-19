@@ -69,5 +69,6 @@ public class Car {
                 .buildMaxSpeed(250)
                 .build();
         System.out.println(car);
+
     }
 }
