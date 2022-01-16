@@ -14,7 +14,8 @@ public class Car {
         private String body; //тип кузов
         private String driveUnit; //тип привода
         private String engine; //тип двигателя
-        private String enginePosition; //расположение двигателя отноительно кузова
+        private String enginePosition; //расположение двигателя
+        // отноительно кузова
         private int maxSpeed; //максимальная скорость
         private int numOfDoors; //количество дверей
 
@@ -22,30 +23,37 @@ public class Car {
             this.brand = brand;
             return this;
         }
+
         Builder buildBody(String body) {
             this.body = body;
             return this;
         }
+
         Builder buildDriveUnit(String driveUnit) {
             this.driveUnit = driveUnit;
             return this;
         }
+
         Builder buildEngine(String engine) {
             this.engine = engine;
             return this;
         }
+
         Builder buildEnginePosition(String enginePosition) {
             this.enginePosition = enginePosition;
             return this;
         }
+
         Builder buildMaxSpeed(int maxSpeed) {
             this.maxSpeed = maxSpeed;
             return this;
         }
+
         Builder buildNumOfDoors(int numOfDoors) {
             this.numOfDoors = numOfDoors;
             return this;
         }
+
         Car build() {
             Car car = new Car();
             car.maxSpeed = maxSpeed;
