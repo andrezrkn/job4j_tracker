@@ -1,23 +1,22 @@
 package ru.job4j.stream;
 
 public class Car {
-    private String brand; //марка
-    private String body; //тип кузов
-    private String driveUnit; //тип привода
-    private String engine; //тип двигателя
-    private String enginePosition; //расположение двигателя отноительно кузова
-    private int maxSpeed; //максимальная скорость
-    private int numOfDoors; //количество дверей
+    private String brand;
+    private String body;
+    private String driveUnit;
+    private String engine;
+    private String enginePosition;
+    private int maxSpeed;
+    private int numOfDoors;
 
     static class Builder {
-        private String brand; //марка
-        private String body; //тип кузов
-        private String driveUnit; //тип привода
-        private String engine; //тип двигателя
-        private String enginePosition; //расположение двигателя
-        // отноительно кузова
-        private int maxSpeed; //максимальная скорость
-        private int numOfDoors; //количество дверей
+        private String brand;
+        private String body;
+        private String driveUnit;
+        private String engine;
+        private String enginePosition;
+        private int maxSpeed;
+        private int numOfDoors;
 
         Builder buildBrand(String brand) {
             this.brand = brand;

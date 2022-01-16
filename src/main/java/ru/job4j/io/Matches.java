@@ -6,7 +6,7 @@ public class Matches {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int matches = 11;
-        int player = 2; // player 1 or 2
+        int player = 2;
         while (matches > 0) {
             if (player == 1) {
                 player = 2;
