@@ -24,12 +24,7 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        T idn = null;
-        for (String key : storage.keySet()) {
-            if (key.equals(id)) {
-                idn = storage.get(id);
-            }
-        }
-        return idn;
+        return storage.get(id) != null && storage.containsKey(id)
+                ? storage.get(id) : null;
     }
 }
