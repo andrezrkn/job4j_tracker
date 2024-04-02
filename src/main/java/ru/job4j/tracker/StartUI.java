@@ -1,5 +1,11 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.Validate;
+import ru.job4j.tracker.output.Console;
+import ru.job4j.tracker.output.Output;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +42,17 @@ public class StartUI {
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         System.out.println(item.getDateTime().format(formatter));
-        Output output = new ConsoleOutput();
+        Output output = new Console();
         Tracker tracker = new Tracker();
-        Input input =  new ValidateInput(output, new ConsoleInput());
+        Input input =  new Validate(output, new ru.job4j.tracker.input.Console());
         List<UserAction> actions = new ArrayList<UserAction>();
-        actions.add(0, new CreateAction());
-        actions.add(1, new DeleteAction(output));
-        actions.add(2, new EditAction(output));
-        actions.add(3, new ShowAction(output));
-        actions.add(4, new FindIdAction(output));
-        actions.add(5, new FindNameAction(output));
-        actions.add(6, new ExitAction());
+        actions.add(0, new Create());
+        actions.add(1, new Delete(output));
+        actions.add(2, new Edit(output));
+        actions.add(3, new Show(output));
+        actions.add(4, new FindId(output));
+        actions.add(5, new FindName(output));
+        actions.add(6, new Exit());
         new StartUI(output).init(input, tracker, actions);
     }
 }

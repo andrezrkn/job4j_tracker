@@ -1,12 +1,14 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.sort;
+
+import ru.job4j.tracker.Item;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class DescendingSort implements Comparator<Item> {
+public class Descending implements Comparator<Item> {
     public static List<Item> sort(List<Item> mass) {
-        Collections.sort(mass, new DescendingSort());
+        Collections.sort(mass, new Descending());
         return mass;
     }
 
