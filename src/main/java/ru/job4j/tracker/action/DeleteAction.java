@@ -1,30 +1,30 @@
 package ru.job4j.tracker.action;
 
 import ru.job4j.tracker.input.Input;
-import ru.job4j.tracker.Item;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.Tracker;
 
-public class FindId implements UserAction {
+public class DeleteAction implements UserAction {
     private final Output out;
 
-    public FindId(Output out) {
+    public DeleteAction(Output out) {
         this.out = out;
     }
 
     @Override
     public String name() {
-        return "=== Find item by id ====";
+        return "=== Delete Item ====";
     }
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
+        boolean result;
         int id = input.askInt("Enter id: ");
-        Item itemFind = tracker.findById(id);
-        if (itemFind == null) {
-            out.println("No item found.");
+        result = tracker.delete(id);
+        if (result) {
+            out.println("Successful delete");
         } else {
-            out.println("Name: " + itemFind.getName());
+            out.println("Error delete");
         }
         return true;
     }

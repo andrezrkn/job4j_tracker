@@ -3,12 +3,13 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.Input;
-import ru.job4j.tracker.input.Validate;
-import ru.job4j.tracker.output.Console;
+import ru.job4j.tracker.input.StubInput;
+import ru.job4j.tracker.input.ValidateInput;
+import ru.job4j.tracker.output.ConsoleOutput;
 import ru.job4j.tracker.output.Output;
-import ru.job4j.tracker.output.Stub;
-import ru.job4j.tracker.sort.Ascending;
-import ru.job4j.tracker.sort.Descending;
+import ru.job4j.tracker.output.StubOutput;
+import ru.job4j.tracker.sort.AscendingSort;
+import ru.job4j.tracker.sort.DescendingSort;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -56,9 +57,9 @@ public class TrackerTest {
     @Test
     public void whenAddItem() {
         String[] answers = {"Fix PC"};
-        Input input = new ru.job4j.tracker.input.Stub(answers);
+        Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        new Create().execute(input, tracker);
+        new CreateAction().execute(input, tracker);
         List<Item> created = tracker.findAll();
         Item expected = new Item("Fix PC");
         assertThat(created.get(0).getName(), is(expected.getName()));
@@ -66,7 +67,7 @@ public class TrackerTest {
 
     @Test
     public void whenReplaceItem() {
-        Output out = new Stub();
+        Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = new Item("new item");
         tracker.add(item);
@@ -74,14 +75,14 @@ public class TrackerTest {
                 String.valueOf(item.getId()),
                 "replaced item"
         };
-        new Edit(out).execute(new ru.job4j.tracker.input.Stub(answers), tracker);
+        new EditAction(out).execute(new StubInput(answers), tracker);
         Item replaced = tracker.findById(item.getId());
         assertThat(replaced.getName(), is("replaced item"));
     }
 
     @Test
     public void whenDeleteItem() {
-        Output out = new Stub();
+        Output out = new StubOutput();
         Tracker tracker = new Tracker();
         Item item = new Item("lol");
         tracker.add(item);
@@ -89,70 +90,70 @@ public class TrackerTest {
                 String.valueOf(item.getId()),
                 item.getName()
         };
-        new Delete(out).execute(new ru.job4j.tracker.input.Stub(info), tracker);
+        new DeleteAction(out).execute(new StubInput(info), tracker);
         Item deleted = tracker.findById(item.getId());
         assertNull(deleted);
     }
 
     @Test
     public void whenCreateItem() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-          actions.add(0, new Create());
-          actions.add(1, new Exit());
+          actions.add(0, new CreateAction());
+          actions.add(1, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName(), is("Item name"));
     }
 
     @Test
     public void whenDeleteAction() {
-        Output out = new Stub();
-        Output output = new Console();
+        Output out = new StubOutput();
+        Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Deleted item"));
-        Input in = new ru.job4j.tracker.input.Stub(
+        Input in = new StubInput(
                 new String[] {"0", "1", "1"}
         );
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Delete(output));
-        actions.add(1, new Exit());
+        actions.add(0, new DeleteAction(output));
+        actions.add(1, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertNull(tracker.findById(item.getId()));
     }
 
     @Test
     public void whenEditAction() {
-        Output output = new Console();
-        Output out = new Stub();
+        Output output = new ConsoleOutput();
+        Output out = new StubOutput();
         Tracker tracker = new Tracker();
         /* Добавим в tracker новую заявку */
         Item item = tracker.add(new Item("Replaced item"));
         /* Входные данные должны содержать ID добавленной заявки
         item.getId() */
         String replacedName = "New item name";
-        Input in = new ru.job4j.tracker.input.Stub(
+        Input in = new StubInput(
                 new String[] {"0", "1", replacedName, "1"}
         );
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Edit(output));
-        actions.add(1, new Exit());
+        actions.add(0, new EditAction(output));
+        actions.add(1, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName(), is(replacedName));
     }
 
     @Test
     public void whenExit() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"0"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Exit());
+        actions.add(0, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
@@ -162,15 +163,15 @@ public class TrackerTest {
 
     @Test
     public void whenFindByName() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"0", "1", "0", "1", "1", "1", "2"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Create());
-        actions.add(1, new FindName(out));
-        actions.add(2, new Exit());
+        actions.add(0, new CreateAction());
+        actions.add(1, new FindNameAction(out));
+        actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
@@ -205,15 +206,15 @@ public class TrackerTest {
 
     @Test
     public void whenFindById() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "1", "2"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Create());
-        actions.add(1, new FindId(out));
-        actions.add(2, new Exit());
+        actions.add(0, new CreateAction());
+        actions.add(1, new FindIdAction(out));
+        actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
@@ -248,15 +249,15 @@ public class TrackerTest {
 
     @Test
     public void whenShowAction() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"0", "1", "0", "2", "1", "2"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Create());
-        actions.add(1, new Show(out));
-        actions.add(2, new Exit());
+        actions.add(0, new CreateAction());
+        actions.add(1, new ShowAction(out));
+        actions.add(2, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu" + System.lineSeparator()
@@ -287,13 +288,13 @@ public class TrackerTest {
 
     @Test
     public void whenInvalidExit() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"1", "0"}
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-        actions.add(0, new Exit());
+        actions.add(0, new ExitAction());
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                         "Menu" + System.lineSeparator()
@@ -304,33 +305,33 @@ public class TrackerTest {
 
     @Test
     public void whenInvalidInput() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"one", "1"}
         );
-        Validate input = new Validate(out, in);
+        ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
         assertThat(selected, is(1));
     }
 
     @Test
     public void whenTrueInput() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"1", "2"}
         );
-        Validate input = new Validate(out, in);
+        ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
         assertThat(selected, is(1));
     }
 
     @Test
     public void whenInvalidOutput() {
-        Output out = new Stub();
-        Input in = new ru.job4j.tracker.input.Stub(
+        Output out = new StubOutput();
+        Input in = new StubInput(
                 new String[] {"one", "1"}
         );
-        Validate input = new Validate(out, in);
+        ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
         assertThat(out.toString(), is("Please enter validate data again."
                 + System.lineSeparator()));
@@ -348,7 +349,7 @@ public class TrackerTest {
                 new Item(1, "1"),
                 new Item(2, "2")
         );
-        baseItems = Ascending.sort(baseItems);
+        baseItems = AscendingSort.sort(baseItems);
         assertTrue(baseItems.equals(expectedItems));
     }
 
@@ -364,7 +365,7 @@ public class TrackerTest {
                 new Item(1, "1"),
                 new Item(0, "0")
         );
-        baseItems = Descending.sort(baseItems);
+        baseItems = DescendingSort.sort(baseItems);
         assertTrue(baseItems.equals(expectedItems));
     }
 }

@@ -5,10 +5,10 @@ import ru.job4j.tracker.Item;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.Tracker;
 
-public class Edit implements UserAction {
+public class EditAction implements UserAction {
     private final Output out;
 
-    public Edit(Output out) {
+    public EditAction(Output out) {
         this.out = out;
     }
 

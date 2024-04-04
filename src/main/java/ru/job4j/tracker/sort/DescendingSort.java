@@ -6,14 +6,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Ascending implements Comparator<Item> {
+public class DescendingSort implements Comparator<Item> {
     public static List<Item> sort(List<Item> mass) {
-        Collections.sort(mass, new Ascending());
+        Collections.sort(mass, new DescendingSort());
         return mass;
     }
 
     @Override
     public int compare(Item first, Item second) {
-        return first.getName().compareTo(second.getName());
+        return second.getName().compareTo(first.getName());
     }
 }
