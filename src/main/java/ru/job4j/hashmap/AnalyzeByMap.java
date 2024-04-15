@@ -33,11 +33,7 @@ public class AnalyzeByMap {
         List<Label> result = new ArrayList<>();
         for (Pupil p : pupils) {
             for (Subject s : p.subjects()) {
-                if (subjectsAv.containsKey(s.name())) {
-                    subjectsAv.put(s.name(), subjectsAv.get(s.name()) + s.score());
-                } else {
-                    subjectsAv.put(s.name(), (double) s.score());
-                }
+                subjectsAv.put(s.name(), subjectsAv.getOrDefault(s.name(), 0D) + s.score());
             }
         }
         for (String key : subjectsAv.keySet()) {
@@ -47,13 +43,13 @@ public class AnalyzeByMap {
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        Label best = new Label("", 0);
+        Label best = null;
         for (Pupil p : pupils) {
             double sum = 0;
             for (Subject s : p.subjects()) {
                 sum += s.score();
             }
-            if (best.score() < sum) {
+            if (best == null || best.score() < sum) {
                 best = new Label(p.name(), sum);
             }
         }
@@ -62,18 +58,14 @@ public class AnalyzeByMap {
 
     public static Label bestSubject(List<Pupil> pupils) {
         Map<String, Double> subjectsAv = new LinkedHashMap<>();
-        Label best = new Label("", 0D);
+        Label best = null;
         for (Pupil p : pupils) {
             for (Subject s : p.subjects()) {
-                if (subjectsAv.containsKey(s.name())) {
-                    subjectsAv.put(s.name(), subjectsAv.get(s.name()) + s.score());
-                } else {
-                    subjectsAv.put(s.name(), (double) s.score());
-                }
+                subjectsAv.put(s.name(), subjectsAv.getOrDefault(s.name(), 0D) + s.score());
             }
         }
         for (String key : subjectsAv.keySet()) {
-            if (best.score() < subjectsAv.get(key)) {
+            if (best == null || best.score() < subjectsAv.get(key)) {
                 best = new Label(key, subjectsAv.get(key));
             }
         }
