@@ -2,13 +2,29 @@ package ru.job4j.bank;
 
 import java.util.*;
 
+/**
+ * Класс BankService описывает банк с ограниченным функционалом, который может добавить
+ * пользователя и счёт, найти по паспорту и реквизитам и сделать трансфер
+ */
 public class BankService {
+    /**
+     * Поле users состоит из карты, ключем которой является класс User, а значения это список из
+     * аккаунтов
+     */
     private Map<User, List<Account>> users = new HashMap<>();
 
+    /**
+     * @param user добавляется в поле users, счёта у юзера нет
+     */
     public void addUser(User user) {
             users.putIfAbsent(user, new ArrayList<Account>());
     }
 
+    /**
+     * @param passport нужен для поиска пользователя, ищем по паспорту
+     * @param account счет, который мы добавляем пользователю. Перед этим происходит проверка, что
+     *                такого счета ещё нет
+     */
     public void addAccount(String passport, Account account) {
         boolean flag = true;
         Optional<User> citizen = findByPassport(passport);
@@ -26,6 +42,11 @@ public class BankService {
         }
     }
 
+    /**
+     * Поиск пользователя по паспорту
+     * @param passport с его помощью ищем юзера
+     * @return user, паспорт которого совпадает с passport
+     */
     public Optional<User> findByPassport(String passport) {
         return users.keySet()
                 .stream()
@@ -35,6 +56,12 @@ public class BankService {
                 ).findFirst();
     }
 
+    /**
+     * Поиск счета по паспорту и реквизиту
+     * @param passport нужен, чтобы найти пользователя, чтобы получить доступ к его счетам
+     * @param requisite нужен, чтобы найти конкретный счет
+     * @return счет, который мы ищем
+     */
     public Optional<Account> findByRequisite(String passport,
                                              String requisite) {
         Optional<Account> rslOpt = Optional.empty();
@@ -49,6 +76,16 @@ public class BankService {
         return rslOpt;
     }
 
+    /**
+     * Перевод денег с одного счёта на другой, перевод осуществится при наличии счетов отправителя
+     * и получаетлся. Так же проверяется, что отправка не сделает счет получателя отрицательным
+     * @param srcPassport паспорт отправителя, ищем по нему пользователя
+     * @param srcRequisite счет отправителя, ищем по нему конкретный счет
+     * @param destPassport паспорт получателя
+     * @param destRequisite счет получаетля
+     * @param amount сумма отправляемых денег
+     * @return успешность отправки
+     */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite,
                                  double amount) {
