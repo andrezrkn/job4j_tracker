@@ -12,12 +12,12 @@ public class Card {
         this.value = value;
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public Value getValue() {
-        return value;
+    @Override
+    public String toString() {
+        return "Card{"
+                + "suit=" + suit
+                + ", value=" + value
+                + '}';
     }
 
     public static void main(String[] args) {
@@ -25,9 +25,6 @@ public class Card {
                .flatMap(e -> Stream.of(Value.values())
                        .map((l -> new Card(e, l))))
                .toList();
-       card.forEach((a) -> {
-           System.out.println(a.getSuit());
-           System.out.println(a.getValue());
-       });
+       card.forEach(a -> System.out.println(a.toString()));
     }
 }
