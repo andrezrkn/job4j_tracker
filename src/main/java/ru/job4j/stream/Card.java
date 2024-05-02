@@ -25,6 +25,6 @@ public class Card {
                .flatMap(e -> Stream.of(Value.values())
                        .map((l -> new Card(e, l))))
                .toList();
-       card.forEach(a -> System.out.println(a.toString()));
+       card.forEach(System.out::println);
     }
 }
